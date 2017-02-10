@@ -18,7 +18,7 @@ def parse_links():
 
 	return links
 
-def download(link,idx,log_dir,down_dir):
+def download(link,idx,log_dir,down_dir,bg=True):
 	'''
 	Download the links
 
@@ -28,28 +28,31 @@ def download(link,idx,log_dir,down_dir):
 	idx: 		the index
 	log_dir:	the directory for saving the log files from wget
 	down_dir:	the directory for saving the downloaded files
+	bg:		download in background or not
 
 	Returns:
 	========
 	logfile_dir: 	the directory to the logged file 
 	file_dir:	the directory to the downloaded file
 	'''
-	
-
-	assert os.path.exists(log_dir)
 	assert os.path.exists(down_dir)
-	
-	logfile_dir = os.path.join(log_dir,'log_wiki_history_%d'%(idx))
 	file_dir = os.path.join(down_dir,'wiki_history_%d.xml.bz2'%(idx))	
-
-	assert os.path.exists(logfile_dir) == False
 	assert os.path.exists(file_dir) == False
 
 	print('Download   Status: %d BEGIN'%(idx))
+	if(bg == True):
+		assert os.path.exists(log_dir)
+		logfile_dir = os.path.join(log_dir,'log_wiki_history_%d'%(idx))
+		assert os.path.exists(logfile_dir) == False
 
-	subprocess.call('sudo wget -a %s -O %s -b %s'%
+		subprocess.call('sudo wget -a %s -O %s -b %s'%
 				(logfile_dir,file_dir,link),shell=True)
 
+	else:
+		logfile_dir = None # because logfile_dir need to be returned 
+		subprocess.call('sudo wget -O %s %s'%(file_dir,link),shell=True)
+
+	
 	return [logfile_dir, file_dir]
 
 
@@ -62,6 +65,10 @@ def unzip(idx,file_dir,unzip_dir):
 	idx: 		index
 	file_dir: 	directory to the file to be unzipped
 	unzip_dir:	directory for saving the unzipped file
+
+	Return:
+	=======
+	unzipped_dir:	directory to the unzipped xml file
 	'''
 	assert os.path.exists(file_dir)
 	assert os.path.exists(unzip_dir)
@@ -78,6 +85,8 @@ def unzip(idx,file_dir,unzip_dir):
 	subprocess.call('sudo rm %s'%(file_dir),shell=True)
 	assert os.path.exists(file_dir) == False
 	print('Delete    Statis: %d COMPLETE)'%(idx)) 
+
+	return unzipped_dir
 
 def validify_links(url,links):
 	link_example1 = 'enwiki-20161201-pages-meta-history7.xml-p000892914p000924158.bz2'
