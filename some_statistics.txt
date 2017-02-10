@@ -1,0 +1,31 @@
+Statistics for FILE 0
+
+Download:
+	Size:
+		2.6 G
+	Time:
+		22m 20s
+Unzipped:
+	Size:
+		51.4 G
+	Time:
+		21m 10s
+Parse:
+	(raw) size: 
+		14 M
+	Time:
+		40m 49s
+
+Columns Names:
+	'Unnamed: 0', 'Title', 'time', 'user', 'byte'
+DataFrame Size:
+	(238684, 5)
+Number of Unique Titles
+	(15305)
+Number of Unique Users:
+	(40852)
+Number of titles in page_titles.txt
+	0
+
+
+	
