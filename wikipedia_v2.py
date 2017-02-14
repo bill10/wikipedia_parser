@@ -31,7 +31,7 @@ def parser(infile,outfile,namespace,page_titles,limit):
             if(page_titles != None and pages.title.replace(' ','').lower() not in page_titles):
                 continue
             prev=0
-            for revisions in pages._Page__revisions:
+            for revisions in pages:
                 title.append(pages.title)
                 if(revisions.text!=None):
                     byte.append(len(revisions.text)-prev)
