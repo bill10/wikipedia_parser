@@ -1,56 +1,69 @@
-import utils
 import os
-import wikiparser
+import sys
+import subprocess
 import time
-from argparse import ArgumentParser
 
-def build_parser():
-	parser = ArgumentParser()
-	parser.add_argument('--dir',type=str,
-				dest='dir',
-				help='directory to save the files',
-				required=True)
-	parser.add_argument('--namespace',type=int,
-				dest='namespace',
-				help='namespace to parser',
-				required=True)
-	parser.add_argument('--titlesdir',type=str,
-				dest='titlesdir',
-				help='directories to required titles')
-	parser.add_argument('--download',action='store_true',
-				dest='download',
-				help='download or not')
-	parser.add_argument('--f',type=str,
-				dest='file_dir',
-				help='directory to the file if dont download')
-	parser.add_argument('--idx',type=int,
-				dest='idx',
-				help='index of files to parser',
-				required=True)
-	return parser
+
+def parser(infile,outfile,namespace,page_titles,limit):
+	'''
+	parse the wikipedia.xml file into csv
+
+	Args:
+	=====
+	infile:	the file to parse
+    outfile: 	filename of the output file
+	namespace:	namespace to search
+	page_title: 	(set) titles of required pages
+	'''
+
+	i = 0
+	time_start = time.now()
+
+	dump = mwxml.Dump.from_file(infile)
+    title=[]
+    byte=[]
+    user=[]
+    timestamp=[]
+	for pages in dump:
+		if(pages.namespace == namespace):
+			if(page_titles != None and
+				pages.title.replace(' ','').lower() not in page_titles):
+				continue
+
+			for revisions in pages._Page__revisions:
+                title.append(pages.title)
+				if(revisions.text!=None):
+					byte.append(len(revisions.text))
+				else:
+ 					byte.append(0)
+				timestamp.append(revisions.timestamp)
+				if (revisions.user != None):
+					user.append(revisions.user.text)
+				else:
+					user.append('NA')
+		if( limit != None and i >= limit ):
+            break
+		i = i + 1
+    df  = pd.DataFrame({'title':title,'time':timestamp,'user':user,'byte':byte})
+    df.to_csv(outfile, sep='\t', index=False)
+	time_stop = time.now()
+	print('Time elapsed = %s' % (time_stop - time_start))
+
 
 def main():
-	parser = build_parser()
-	args = parser.parse_args()
+    namespace=1
+    titles=None
+	with open('page_titles.txt') as f:
+		titles_ = f.readlines()
+		titles = set(titles_)
+    base_url = 'https://dumps.wikimedia.org/enwiki/20161201/'
+    filename=sys.argv[1]
+	url = base_url+filename
+	subprocess.call(["wget", url])
+	subprocess.call(["7z", "e", filename])
+    infile=filename[:-3]
+    outfile=filename[:-3]+'.tsv'
+    parser(infile,outfile,namespace,titles,limit=100):
 
-	if(args.titlesdir != None):
-		with open(args.titlesdir) as f:
-			titles_ = f.readlines()
-			titles = set(titles_)
-
-	else: titles = None
-	if(args.download == True):
-		LINKS = utils.parse_links()
-		link = LINKS[args.idx]
-		[logfile_dir, file_dir] = utils.download(link,args.idx,args.dir,args.dir,bg=False)
-		unzipped_dir = utils.unzip(args.idx,file_dir,args.dir)
-	else:
-		assert os.path.exists(args.file_dir)
-		unzipped_dir = args.file_dir
-
-	wikiparser.parser(unzipped_dir,args.dir,args.idx,args.namespace,titles)
-
-		
-	
 if __name__ == '__main__':
 	main()
