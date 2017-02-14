@@ -1,7 +1,9 @@
 import os
 import sys
 import subprocess
-import time
+import mwxml
+import pandas as pd
+from datetime import datetime as time
 
 
 def parser(infile,outfile,namespace,page_titles,limit):
@@ -30,17 +32,19 @@ def parser(infile,outfile,namespace,page_titles,limit):
 				pages.title.replace(' ','').lower() not in page_titles):
 				continue
 
+            prev=0
 			for revisions in pages._Page__revisions:
                 title.append(pages.title)
 				if(revisions.text!=None):
-					byte.append(len(revisions.text))
+					byte.append(len(revisions.text)-prev)
+                    prev=len(revisions.text)
 				else:
  					byte.append(0)
 				timestamp.append(revisions.timestamp)
 				if (revisions.user != None):
 					user.append(revisions.user.text)
 				else:
-					user.append('NA')
+					user.append('')
 		if( limit != None and i >= limit ):
             break
 		i = i + 1
