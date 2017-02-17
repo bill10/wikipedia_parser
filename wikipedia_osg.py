@@ -9,14 +9,14 @@ class Stopwatch:
     start_time=None
     def go(self,msg=''):
         if msg:
-            print msg,
+            print(msg),
         self.start_time=time.time()
         sys.stdout.flush()
     def stop(self,msg=''):
         if msg:
-            print "{}: {} seconds".format(msg,time.time()-self.start_time)
+            print("{}: {} seconds".format(msg,time.time()-self.start_time))
         else:
-            print "Elapsed time: {} seconds".format(time.time()-self.start_time)
+            print("Elapsed time: {} seconds".format(time.time()-self.start_time))
         sys.stdout.flush()
     def check(self):
         return time.time()-self.start_time
