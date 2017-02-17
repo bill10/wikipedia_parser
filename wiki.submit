@@ -6,7 +6,7 @@ Executable = main.sh
 
 # Files to transfer and trasnfer settings
 should_transfer_files = YES
-transfer_input_files = virtenv.tar.gz, wikipedia_osg.py, page_titles.txt
+transfer_input_files = Miniconda3-latest-Linux-x86_64.sh, wikipedia_osg.py, page_titles.txt
 when_to_transfer_output = ON_EXIT
 
 # Log file save location
@@ -26,4 +26,4 @@ Arguments = $(dump)
 requirements = (HAS_MODULES == True && HAS_FILE_usr_lib64_libtk8_5_so == True )
 
 # Do 10 processes (0-9)
-queue dump from all_dumps.txt
+queue dump from test_dumps.txt
