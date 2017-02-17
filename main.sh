@@ -2,11 +2,11 @@
 # This is to be run on every working node
 
 # Install miniconda3
-bash Miniconda3-latest-Linux-x86_64.sh -b
+bash Miniconda3-latest-Linux-x86_64.sh -b -p "${PWD}/miniconda3"
 
 # Activate virtual environment
-~/miniconda3/bin/conda create -y -n myenv python
-source ~/miniconda3/bin/activate myenv
+miniconda3/bin/conda create -y -n myenv python
+source miniconda3/bin/activate myenv
 
 # Install python packages
 pip install mwxml
