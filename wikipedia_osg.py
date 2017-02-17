@@ -85,8 +85,8 @@ def main():
     outfile=filename[:-3]+'.tsv'
     parser(infile,outfile,namespace,titles)
     tic.stop()
-    subprocess.call(["rm", filename])
-    subprocess.call(["rm", infile])
+    #subprocess.call(["rm", filename])
+    #subprocess.call(["rm", infile])
 
 if __name__ == '__main__':
 	main()
