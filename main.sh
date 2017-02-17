@@ -16,4 +16,4 @@ conda install -y pandas
 python wikipedia_osg.py $1
 
 # deactivate virtual environment
-source ~/miniconda3/bin/deactivate myenv
+source deactivate myenv

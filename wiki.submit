@@ -14,6 +14,10 @@ output        = Log/job.$(dump).out
 error         = Log/job.$(dump).error
 log           = Log/job.$(dump).log
 
+# Notifications
+notification = Always
+notify_user = billanson10@gmail.com
+
 # Specs needed on nodes
 request_cpus = 1
 request_memory = 16GB
@@ -23,7 +27,7 @@ request_disk = 20GB
 Arguments = $(dump)
 
 # Node requirements
-requirements = (HAS_MODULES == True && HAS_FILE_usr_lib64_libtk8_5_so == True )
+requirements = (Arch == "X86_64") && (OpSys == "LINUX")
 
 # Do 10 processes (0-9)
 queue dump from test_dumps.txt
