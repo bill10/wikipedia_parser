@@ -1,0 +1,29 @@
+# Standard universe
+Universe = vanilla
+
+# Shell file we want to run
+Executable = main.sh
+
+# Files to transfer and trasnfer settings
+should_transfer_files = YES
+transfer_input_files = virtenv.tar.gz, wikipedia_osg.py, page_titles.txt
+when_to_transfer_output = ON_EXIT
+
+# Log file save location
+output        = Log/job.$(dump).out
+error         = Log/job.$(dump).error
+log           = Log/job.$(dump).log
+
+# Specs needed on nodes
+request_cpus = 1
+request_memory = 16GB
+request_disk = 20GB
+
+# Arguments for the shell file we run
+Arguments = $(dump)
+
+# Node requirements
+requirements = (HAS_MODULES == True && HAS_FILE_usr_lib64_libtk8_5_so == True )
+
+# Do 10 processes (0-9)
+queue dump from all_dumps.txt
