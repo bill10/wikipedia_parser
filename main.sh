@@ -12,8 +12,12 @@ source miniconda3/bin/activate myenv
 pip install mwxml.tar.gz
 conda install -y pandas
 
+tar -xf p7zip.tar.gz
+
 # Run python script
 python wikipedia_osg.py $1
 
 # deactivate virtual environment
 source deactivate myenv
+
+exit

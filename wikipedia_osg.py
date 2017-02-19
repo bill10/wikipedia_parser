@@ -78,7 +78,7 @@ def main():
     subprocess.call(["wget", url])
     tic.stop()
     tic.go('Decompresing...')
-    subprocess.call(["7z", "e", filename])
+    subprocess.call(["p7zip/bin/7z", "e", filename])
     tic.stop()
     tic.go('Parsing...')
     infile=filename[:-3]
