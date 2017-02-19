@@ -9,8 +9,7 @@ miniconda3/bin/conda create -y -n myenv python
 source miniconda3/bin/activate myenv
 
 # Install python packages
-conda install -y pip
-pip install mwxml
+pip install mwxml.tar.gz
 conda install -y pandas
 
 # Run python script
