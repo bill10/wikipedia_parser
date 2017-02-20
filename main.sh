@@ -17,3 +17,5 @@ python wikipedia_osg.py $1
 
 # deactivate virtual environment
 source deactivate myenv
+
+exit

@@ -4,10 +4,13 @@ Universe = vanilla
 # Shell file we want to run
 Executable = main.sh
 
+# Arguments for the shell file we run
+Arguments = $(dump)
+
 # Files to transfer and trasnfer settings
 should_transfer_files = YES
 transfer_input_files = Miniconda3-latest-Linux-x86_64.sh, wikipedia_osg.py, page_titles.txt, mwxml.tar.gz
-transfer_output_files = ${dump/.7z/.tsv}
+transfer_output_files = $(dump).tsv
 when_to_transfer_output = ON_EXIT
 
 # Log file save location
@@ -24,8 +27,7 @@ request_cpus = 1
 request_memory = 16GB
 request_disk = 20GB
 
-# Arguments for the shell file we run
-Arguments = $(dump)
+# +ProjectName="KickstarterDataAnalysis"
 
 # Node requirements
 requirements = (Arch == "X86_64") && (OpSys == "LINUX")

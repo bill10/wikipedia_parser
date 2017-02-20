@@ -78,11 +78,11 @@ def main():
     subprocess.call(["wget", url])
     tic.stop()
     tic.go('Decompresing...')
-    subprocess.call(["7z", "e", filename])
+    subprocess.call(["bzip2", "-d", filename])
     tic.stop()
     tic.go('Parsing...')
-    infile=filename[:-3]
-    outfile=filename[:-3]+'.tsv'
+    infile=filename[:-4]
+    outfile=filename+'.tsv'
     parser(infile,outfile,namespace,titles)
     tic.stop()
     #subprocess.call(["rm", filename])
