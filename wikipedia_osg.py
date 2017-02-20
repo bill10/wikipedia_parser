@@ -77,11 +77,12 @@ def main():
     tic.go('Downloading {}...'.format(filename))
     subprocess.call(["wget", url])
     tic.stop()
+    subprocess.call(['ls','p7zip/bin/'])
     tic.go('Decompresing...')
-    subprocess.call(["bzip2", "-d", filename])
+    subprocess.call(["./p7zip/bin/7z", "e", filename])
     tic.stop()
     tic.go('Parsing...')
-    infile=filename[:-4]
+    infile=filename[:-3]
     outfile=filename+'.tsv'
     parser(infile,outfile,namespace,titles)
     tic.stop()
