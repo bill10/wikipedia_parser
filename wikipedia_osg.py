@@ -29,10 +29,10 @@ def parser(infile,outfile,namespace,page_titles,limit=None):
 
     Args:
     =====
-    infile:	the file to parse
-    outfile: 	filename of the output file
-    namespace:	namespace to search
-    page_title: 	(set) titles of required pages
+    infile:    the file to parse
+    outfile:     filename of the output file
+    namespace:    namespace to search
+    page_title:     (set) titles of required pages
     '''
 
     i = 0
@@ -70,7 +70,7 @@ def main():
     titles=set()
     with open('page_titles.txt') as f:
         for l in f:
-    	   titles.add(l.strip('\n"'))
+            titles.add(l.strip('\n"'))
     base_url = 'https://dumps.wikimedia.org/enwiki/20161201/'
     filename=sys.argv[1]
     url = base_url+filename
@@ -89,4 +89,4 @@ def main():
     #subprocess.call(["rm", infile])
 
 if __name__ == '__main__':
-	main()
+    main()
