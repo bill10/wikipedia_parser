@@ -1,5 +1,6 @@
 #!/bin/bash
 # This is to be run on every working node
+module load gcc
 
 # Install miniconda3
 bash Miniconda3-latest-Linux-x86_64.sh -b -p "${PWD}/miniconda3"

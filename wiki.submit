@@ -24,13 +24,13 @@ notify_user = billanson10@gmail.com
 
 # Specs needed on nodes
 request_cpus = 1
-request_memory = 16GB
-request_disk = 20GB
+request_memory = 1GB
+request_disk = 80GB
 
 # +ProjectName="KickstarterDataAnalysis"
 
 # Node requirements
-requirements = (Arch == "X86_64") && (OpSys == "LINUX")
+requirements = (Arch == "X86_64" && HAS_MODULES == True)
 
 # Do 10 processes (0-9)
-queue dump from test_dumps.txt
+queue dump from all_dumps.txt
