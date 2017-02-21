@@ -41,21 +41,21 @@ def parser(infile,outfile,namespace,page_titles,limit=None):
     byte=[]
     user=[]
     timestamp=[]
-    for pages in dump:
-        if(pages.namespace == namespace):
-            if(page_titles != None and pages.title.replace(' ','').lower() not in page_titles):
+    for page in dump:
+        if (page.namespace == namespace):
+            if (len(page_titles)>0 and page.title.replace(' ','').lower() not in page_titles):
                 continue
             prev=0
-            for revisions in pages:
-                title.append(pages.title)
-                if(revisions.text!=None):
-                    byte.append(len(revisions.text)-prev)
-                    prev=len(revisions.text)
+            for revision in page:
+                title.append(page.title)
+                if(revision.text!=None):
+                    byte.append(len(revision.text)-prev)
+                    prev=len(revision.text)
                 else:
                     byte.append(0)
-                timestamp.append(revisions.timestamp)
-                if (revisions.user != None):
-                    user.append(revisions.user.text)
+                timestamp.append(revision.timestamp)
+                if (revision.user != None):
+                    user.append(revision.user.text)
                 else:
                     user.append('')
         if( limit != None and i >= limit ):
@@ -67,17 +67,16 @@ def parser(infile,outfile,namespace,page_titles,limit=None):
 
 def main():
     namespace=1
-    titles=None
+    titles=set()
     with open('page_titles.txt') as f:
-    	titles_ = f.readlines()
-    	titles = set(titles_)
+        for l in f:
+    	   titles.add(l.strip('\n"'))
     base_url = 'https://dumps.wikimedia.org/enwiki/20161201/'
     filename=sys.argv[1]
     url = base_url+filename
     tic.go('Downloading {}...'.format(filename))
     subprocess.call(["wget", url])
     tic.stop()
-    subprocess.call(['ls','p7zip/bin/'])
     tic.go('Decompresing...')
     subprocess.call(["./p7zip/bin/7z", "e", filename])
     tic.stop()
