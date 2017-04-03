@@ -12,6 +12,7 @@ should_transfer_files = YES
 transfer_input_files = p7zip.tar.gz, Miniconda3-latest-Linux-x86_64.sh, wikipedia_osg.py, page_titles_0402.txt, mwxml.tar.gz
 transfer_output_files = $(dump).tsv
 when_to_transfer_output = ON_EXIT
++WantsStashCache = true
 
 # Log file save location
 output        = Log/job.$(dump).out
