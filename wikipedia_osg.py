@@ -4,6 +4,7 @@ import subprocess
 import mwxml
 import pandas as pd
 import time
+import io
 
 MAIN_SPACE=0
 TALK_SPACE=1
@@ -71,7 +72,7 @@ def parser(infile,outfile,namespace,page_titles=[],limit=None):
 def main():
     namespace=MAIN_SPACE
     titles=set()
-    with open('page_titles_0402.txt') as f:
+    with io.open('page_titles_0402.txt','r',encoding='utf8') as f:
         for l in f:
             titles.add(l.strip('\n'))
     base_url = 'https://dumps.wikimedia.org/enwiki/20161201/'
