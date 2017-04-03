@@ -5,6 +5,9 @@ import mwxml
 import pandas as pd
 import time
 
+MAIN_SPACE=0
+TALK_SPACE=1
+
 class Stopwatch:
     start_time=None
     def go(self,msg=''):
@@ -23,7 +26,7 @@ class Stopwatch:
 
 tic=Stopwatch()
 
-def parser(infile,outfile,namespace,page_titles,limit=None):
+def parser(infile,outfile,namespace,page_titles=[],limit=None):
     '''
     parse the wikipedia.xml file into csv
 
@@ -66,20 +69,20 @@ def parser(infile,outfile,namespace,page_titles,limit=None):
 
 
 def main():
-    namespace=1
+    namespace=MAIN_SPACE
     titles=set()
-    with open('page_titles.txt') as f:
+    with open('page_titles_0402.txt') as f:
         for l in f:
-            titles.add(l.strip('\n"'))
+            titles.add(l.strip('\n'))
     base_url = 'https://dumps.wikimedia.org/enwiki/20161201/'
     filename=sys.argv[1]
     url = base_url+filename
-    tic.go('Downloading {}...'.format(filename))
-    subprocess.call(["wget", url])
-    tic.stop()
-    tic.go('Decompresing...')
-    subprocess.call(["./p7zip/bin/7z", "e", filename])
-    tic.stop()
+    #tic.go('Downloading {}...'.format(filename))
+    #subprocess.call(["wget", url])
+    #tic.stop()
+    #tic.go('Decompresing...')
+    #subprocess.call(["./p7zip/bin/7z", "e", filename])
+    #tic.stop()
     tic.go('Parsing...')
     infile=filename[:-3]
     outfile=filename+'.tsv'
