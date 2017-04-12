@@ -5,6 +5,8 @@ module load stashcp
 
 # Copy files from Stash
 stashcp /user/bill10/public/Wiki/$1 .
+tar -xf p7zip.tar.gz
+p7zip/bin/7z e $1
 
 # Install miniconda3
 bash Miniconda3-latest-Linux-x86_64.sh -b -p "${PWD}/miniconda3"
@@ -16,9 +18,6 @@ source miniconda3/bin/activate myenv
 # Install python packages
 pip install mwxml.tar.gz
 conda install -y pandas
-
-tar -xf p7zip.tar.gz
-p7zip/bin/7z e $1
 
 # Run python script
 python wikipedia_osg.py $1
