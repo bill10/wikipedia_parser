@@ -14,8 +14,8 @@ module add python
 export PYTHONPATH=/nas/longleaf/home/bill10/Library/lib/python3.5/site-packages:$PYTHONPATH
 
 # Copy files from Stash
-wget http://stash.osgconnect.net/+bill10/Wiki/enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z
-7z e enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z 
+#wget http://stash.osgconnect.net/+bill10/Wiki/enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z
+#7z e enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z 
 
 # Run python script
-python wikipedia_osg.py enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z 
+python3 wikipedia_osg.py enwiki-20161201-pages-meta-history13.xml-p005040438p005137507.7z 
